@@ -1,17 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react"
+import ReactDOM from "react-dom"
+import "./assets/index.css"
+import App from "./components/App"
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { WishList } from "./models/WishList"
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const wishList = WishList.create({
+    items: [
+        {
+            name: "LEGO Mindstorms EV3",
+            price: 349.95,
+            image: "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
+        },
+        {
+            name: "Miracles - C.S. Lewis",
+            price: 12.91,
+            image:
+                "https://images-na.ssl-images-amazon.com/images/I/51a7xaMpneL._SX329_BO1,204,203,200_.jpg"
+        }
+    ]
+})
+
+ReactDOM.render(<App wishList={wishList} />, document.getElementById("root"))
+
+setInterval(() => {
+    wishList.items[0].changePrice(wishList.items[0].price + 1)
+}, 1000)
