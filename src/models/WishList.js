@@ -4,10 +4,10 @@ export const WishListItem = types
     .model({
         name: types.string,
         price: types.number,
-        image: ""
+        image: "" //é o mesmo que image: types.optional(types.string, ""), onde image é opcional, e é atribuída uma string vazia como valor default
     })
-    .actions(self => ({
-        changeName(newName) {
+    .actions(self => ({ //Está entre () para retornar uma lista de ações. Self refere-se ao próprio modelo
+        changeName(newName) { //é o mesmo que changeName: function changeName(newName)
             self.name = newName
         },
         changePrice(newPrice) {
@@ -16,7 +16,7 @@ export const WishListItem = types
         changeImage(newImage) {
             self.image = newImage
         }
-    }))
+    }));
 
 export const WishList = types
     .model({
