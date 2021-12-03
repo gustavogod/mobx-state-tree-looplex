@@ -4,6 +4,7 @@ import logo from "../assets/santa-claus.png"
 import WishListView from "./WishListView"
 
 class App extends Component {
+
     render() {
         return (
             <div className="App">

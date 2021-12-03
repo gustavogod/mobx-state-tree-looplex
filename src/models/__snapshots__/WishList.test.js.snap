@@ -14,7 +14,7 @@ Array [
   Object {
     "op": "replace",
     "path": "/items/0/name",
-    "value": "Book of Chesterton",
+    "value": "Book of G.K. Chesterton",
   },
 ]
 `;
@@ -24,7 +24,7 @@ Object {
   "items": Array [
     Object {
       "image": "",
-      "name": "Book of Chesterton",
+      "name": "Book of G.K. Chesterton",
       "price": 10,
     },
   ],
@@ -46,7 +46,7 @@ Array [
     "items": Array [
       Object {
         "image": "",
-        "name": "Book of Chesterton",
+        "name": "Book of G.K. Chesterton",
         "price": 10,
       },
     ],

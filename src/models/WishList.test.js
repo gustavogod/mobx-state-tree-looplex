@@ -1,4 +1,4 @@
-import { getSnapshot, onSnapshot, onPatch } from "mobx-state-tree"
+import { getSnapshot, onSnapshot, onPatch, getParent } from "mobx-state-tree"
 import { reaction } from "mobx"
 import { WishList, WishListItem } from "./WishList"
 
@@ -28,23 +28,6 @@ it("can create a wishlist", () => {
     expect(list.items[0].price).toBe(28.73)
 })
 
-it("can add new items - 2", () => {
-    const list = WishList.create()
-    const patches = []
-    onPatch(list, patch => {
-        patches.push(patch)
-    })
-
-    list.add({
-        name: "Chesterton",
-        price: 10
-    })
-
-    list.items[0].changeName("Book of G.K. Chesterton")
-
-    expect(patches).toMatchSnapshot()
-})
-
 it("can add new items", () => {
     const list = WishList.create()
     const states = []
@@ -65,6 +48,23 @@ it("can add new items", () => {
     expect(getSnapshot(list)).toMatchSnapshot()
 
     expect(states).toMatchSnapshot()
+})
+
+it("can add new items - 2", () => {
+    const list = WishList.create()
+    const patches = []
+    onPatch(list, patch => {
+        patches.push(patch)
+    })
+
+    list.add({
+        name: "Chesterton",
+        price: 10
+    })
+
+    list.items[0].changeName("Book of G.K. Chesterton")
+
+    expect(patches).toMatchSnapshot()
 })
 
 it("can calculate the total price of a wishlist", () => {
@@ -93,4 +93,5 @@ it("can calculate the total price of a wishlist", () => {
     list.items[0].changeName("Test")
     expect(changed).toBe(0)
     list.items[0].changePrice(10)
+    expect(changed).toBe(1);
 })
