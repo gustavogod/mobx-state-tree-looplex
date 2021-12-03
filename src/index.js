@@ -42,7 +42,7 @@ function renderApp() {
 }
 renderApp();
 
-
+ // Técnica de hot module reloading
 if (module.hot) { // propriedade do webpack
     module.hot.accept(["./components/App"], () => {
         // new components
