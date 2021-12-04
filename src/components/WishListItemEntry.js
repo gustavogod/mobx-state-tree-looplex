@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 
 import WishListItemEdit from "./WishListItemEdit";
 
@@ -35,4 +36,4 @@ class WishListEntry extends Component {
   }
 }
 
-export default WishListEntry;
+export default observer(WishListEntry);

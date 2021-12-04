@@ -1,27 +1,43 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import "./assets/index.css"
-import App from "./components/App"
+import React from "react";
+import ReactDOM from "react-dom";
+import "./assets/index.css";
+import App from "./components/App";
 
-import { getSnapshot, onSnapshot } from "mobx-state-tree"
+import { getSnapshot } from "mobx-state-tree";
 
-import { WishList } from "./models/WishList"
+import { Group } from "./models/Group";
 
 let initialState = {
-    items: [
-        {
-            name: "LEGO Mindstorms EV3",
-            price: 349.95,
-            image: "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
-        },
-        {
-            name: "Miracles - C.S. Lewis",
-            price: 12.91,
-            image:
-                "https://images-na.ssl-images-amazon.com/images/I/51a7xaMpneL._SX329_BO1,204,203,200_.jpg"
-        }
-    ]    
+  users: {
+    "a342": {
+        id: "a342",
+        name: "Homer",
+        gender: "m"
+    },
+    "5fc2": {
+        id: "5fc2",
+        name: "Marge",
+        gender: "f"
+    },
+    "663b": {
+        id: "663b",
+        name: "Bart",
+        gender: "m"
+    },
+    "65aa": {
+        id: "65aa",
+        name: "Maggie",
+        gender: "f"
+    },
+    "ba32": {
+        id: "ba32",
+        name: "Lisa",
+        gender: "f"
+    }      
+  }
 }
+
+let group = Group.create(initialState);
 
 // if (localStorage.getItem('wishlistapp')) {
 //     const json = JSON.parse(localStorage.getItem('wishlistapp'));
@@ -29,16 +45,14 @@ let initialState = {
 //     //A verificação abaixo visa resolver este problema
 //     if (WishList.is(json)) initialState = json;
 // }
+// onSnapshot(wishList, (snapshot) => {
+//     localStorage.setItem("wishlistapp", JSON.stringify(snapshot));
+// })
 
-let wishList = WishList.create(initialState);
-
-onSnapshot(wishList, (snapshot) => {
-    localStorage.setItem("wishlistapp", JSON.stringify(snapshot));
-})
 
 
 function renderApp() {
-    ReactDOM.render(<App wishList={wishList} />, document.getElementById("root"));
+    ReactDOM.render(<App group={group} />, document.getElementById("root"));
 }
 renderApp();
 
@@ -51,8 +65,8 @@ if (module.hot) { // propriedade do webpack
 
     module.hot.accept(["./models/WishList"], () => {
         // new model definitions
-        const snapshot = getSnapshot(wishList);
-        wishList = WishList.create(snapshot);
+        const snapshot = getSnapshot(group);
+        group = Group.create(snapshot);
         renderApp();
     })
 }
@@ -60,3 +74,7 @@ if (module.hot) { // propriedade do webpack
 // setInterval(() => {
 //     wishList.items[0].changePrice(wishList.items[0].price + 1)
 // }, 1000)
+
+// Comando para criar o servidor JSON falso
+// npx json-server --port 3001 --watch db.json
+//TEM QUE SER NPX, POIS NPM NÃO ESTAVA RECONHECENDO O SCRIPT

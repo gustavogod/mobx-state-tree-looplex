@@ -13,8 +13,7 @@ const WishListView = ({ wishList }) => (
                 ))
             }
         </ul>
-        Total: {wishList.totalPrice} €
-        <WishListEntry wishList={wishList} />
+        Total: {wishList.totalPrice} €<WishListEntry wishList={wishList} />
     </div>
 )
 
