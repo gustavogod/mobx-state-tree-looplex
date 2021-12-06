@@ -34,21 +34,6 @@
             "name": "Machine Gun Preacher",
             "price": 7.35,
             "image": "https://images-na.ssl-images-amazon.com/images/I/91AFFK9fwkL._SY445_.jpg"
-          },
-          {
-            "name": "Chocolate",
-            "price": 10,
-            "image": ""
-          },
-          {
-            "name": "Bala",
-            "price": 10,
-            "image": ""
-          },
-          {
-            "name": "Doce",
-            "price": 12,
-            "image": ""
           }
         ]
       },
