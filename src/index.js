@@ -3,41 +3,16 @@ import ReactDOM from "react-dom";
 import "./assets/index.css";
 import App from "./components/App";
 
-import { addMiddleware, getSnapshot } from "mobx-state-tree";
+import { getSnapshot } from "mobx-state-tree";
 
 import { Group } from "./models/Group";
 
-let initialState = {
-  users: {
-    "a342": {
-        id: "a342",
-        name: "Homer",
-        gender: "m"
-    },
-    "5fc2": {
-        id: "5fc2",
-        name: "Marge",
-        gender: "f"
-    },
-    "663b": {
-        id: "663b",
-        name: "Bart",
-        gender: "m"
-    },
-    "65aa": {
-        id: "65aa",
-        name: "Maggie",
-        gender: "f"
-    },
-    "ba32": {
-        id: "ba32",
-        name: "Lisa",
-        gender: "f"
-    }      
-  }
-}
+let initialState = { users: {} };
 
-let group = Group.create(initialState);
+let group = (window.group = Group.create(initialState));
+//o uso do window auxilia na visualização com a devtools
+//dar um window.group.toJSON() no console é o mesmo que invocar um getSnapshot
+group.load();
 
 //CÓDIGO QUE TINHA SIDO USADO PARA DEMONSTRAÇÃO DO USO DA LOCALSTORAGE
 // if (localStorage.getItem('wishlistapp')) {
@@ -71,7 +46,7 @@ if (module.hot) { // propriedade do webpack
     module.hot.accept(["./models/WishList"], () => {
         // new model definitions
         const snapshot = getSnapshot(group);
-        group = Group.create(snapshot);
+        group = (window.group = Group.create(snapshot));
         renderApp();
     })
 }
