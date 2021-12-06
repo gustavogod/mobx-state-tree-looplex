@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./assets/index.css";
 import App from "./components/App";
 
-import { getSnapshot } from "mobx-state-tree";
+import { addMiddleware, getSnapshot } from "mobx-state-tree";
 
 import { Group } from "./models/Group";
 
@@ -39,6 +39,7 @@ let initialState = {
 
 let group = Group.create(initialState);
 
+//CÓDIGO QUE TINHA SIDO USADO PARA DEMONSTRAÇÃO DO USO DA LOCALSTORAGE
 // if (localStorage.getItem('wishlistapp')) {
 //     const json = JSON.parse(localStorage.getItem('wishlistapp'));
 //     //Alterações no modelo podem ocorrer, fazendo com que este fique diferente da estrutura armazenada na localStorage
@@ -49,7 +50,11 @@ let group = Group.create(initialState);
 //     localStorage.setItem("wishlistapp", JSON.stringify(snapshot));
 // })
 
-
+//CÓDIGO APLICADO PARA DEMONSTRAÇÃO DA EXECUÇÃO DAS CHAMADAS ASSÍNCRONAS FEITAS COM generator, flow E yield
+// addMiddleware(group, (call, next) => {
+//     console.log(`[${call.type}] ${call.name}`);
+//     return next(call);
+// })
 
 function renderApp() {
     ReactDOM.render(<App group={group} />, document.getElementById("root"));

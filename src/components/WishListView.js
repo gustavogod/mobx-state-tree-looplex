@@ -4,16 +4,16 @@ import { observer } from "mobx-react"
 import WishListItemView from "./WishListItemView"
 import WishListEntry from "./WishListItemEntry"
 
-const WishListView = ({ wishList }) => (
+const WishListView = ({ wishList, readonly }) => (
     <div className="list">
         <ul>
             {
                 wishList.items.map((item, idx) => (
-                    <WishListItemView key={idx} item={item} />
+                    <WishListItemView key={idx} item={item} readonly={readonly} />
                 ))
             }
         </ul>
-        Total: {wishList.totalPrice} €<WishListEntry wishList={wishList} />
+        Total: {wishList.totalPrice} €{!readonly && <WishListEntry wishList={wishList} />}
     </div>
 )
 
