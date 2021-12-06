@@ -17,7 +17,7 @@ const User = types.compose( //Para compor as actions importadas de ./Storable
             //Nesse caso, o maybe é usado para que se possa ter um recipient undefined, já que pode não haver nenhuma instância de User referenciada no momento  
         })
         .actions(self => ({
-            getSuggestions: flow(function* () {
+            getSuggestions: flow(function* getSuggestions() {
                 const response = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`);
                 self.wishList.items.push(...(yield response.json()));
             })
@@ -46,8 +46,7 @@ export const Group = types
                     const users = yield response.json();
                     applySnapshot(
                         self.users, 
-                        users
-                        //users.reduce((base, user) => ({ ...base, [user.id]: user }), {}) //Adiciona novo usuário
+                        users.reduce((base, user) => ({ ...base, [user.id]: user }), {}) //Adiciona novo usuário
                     );
                     console.log("success");
                 } catch (e) {

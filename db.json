@@ -23,8 +23,8 @@
       "image": "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
     }
   ],
-  "users": {
-    "a342": {
+  "users": [
+    {
       "id": "a342",
       "name": "Homer",
       "gender": "m",
@@ -34,51 +34,52 @@
             "name": "Machine Gun Preacher",
             "price": 7.35,
             "image": "https://images-na.ssl-images-amazon.com/images/I/91AFFK9fwkL._SY445_.jpg"
-          },
-          {
-            "name": "LEGO Mindstorms EV3",
-            "price": 349.95,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
           }
         ]
       },
-      "recipient": "5fc2"
+      "recipient": "ba32"
     },
-    "5fc2": {
+    {
       "id": "5fc2",
       "name": "Marge",
       "gender": "f",
       "wishList": {
-        "items": []
+        "items": [
+          {
+            "name": "Chocotone",
+            "price": 10,
+            "image": ""
+          }
+        ]
       },
-      "recipient": "663b"
+      "recipient": "65aa"
     },
-    "663b": {
+    {
       "id": "663b",
       "name": "Bart",
       "gender": "m",
       "wishList": {
         "items": []
       },
-      "recipient": "65aa"
+      "recipient": "a342"
     },
-    "65aa": {
+    {
       "id": "65aa",
       "name": "Maggie",
       "gender": "f",
       "wishList": {
         "items": []
       },
-      "recipient": "ba32"
+      "recipient": "5fc2"
     },
-    "ba32": {
+    {
       "id": "ba32",
       "name": "Lisa",
       "gender": "f",
       "wishList": {
         "items": []
       },
-      "recipient": "a342"
+      "recipient": "663b"
     }
-  }
+  ]
 }

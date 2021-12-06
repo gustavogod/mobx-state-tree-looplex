@@ -12,7 +12,7 @@ let initialState = { users: {} };
 let group = (window.group = Group.create(initialState));
 //o uso do window auxilia na visualização com a devtools
 //dar um window.group.toJSON() no console é o mesmo que invocar um getSnapshot
-group.load();
+//group.load();
 
 //CÓDIGO QUE TINHA SIDO USADO PARA DEMONSTRAÇÃO DO USO DA LOCALSTORAGE
 // if (localStorage.getItem('wishlistapp')) {
