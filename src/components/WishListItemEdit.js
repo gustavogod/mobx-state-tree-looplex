@@ -8,7 +8,14 @@ class WishListItemEdit extends Component {
             <div className="item-edit">
                 Thing: <input value={item.name} onChange={this.onNameChange} />
                 <br />
-                Price: <input value={item.price} onChange={this.onPriceChange} />
+                Price: <input 
+                        className="input-price"
+                        type="number" 
+                        value={item.price > 0 ? item.price : ""} 
+                        onChange={this.onPriceChange} 
+                        min="0"
+                        placeholder="0,00"
+                        />
                 <br />
                 Image: <input value={item.image} onChange={this.onImageChange} />
                 <br />
@@ -21,7 +28,7 @@ class WishListItemEdit extends Component {
     }
 
     onPriceChange = event => {
-        const price = parseFloat(event.target.value)
+        const price = parseFloat(parseFloat(event.target.value).toFixed(2));
         if (!isNaN(price)) this.props.item.changePrice(price)
     }
 

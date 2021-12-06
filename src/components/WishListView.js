@@ -13,7 +13,7 @@ const WishListView = ({ wishList, readonly }) => (
                 ))
             }
         </ul>
-        Total: {wishList.totalPrice} €{!readonly && <WishListEntry wishList={wishList} />}
+        Total: {wishList.totalPrice.toFixed(2)} €{!readonly && <WishListEntry wishList={wishList} />}
     </div>
 )
 

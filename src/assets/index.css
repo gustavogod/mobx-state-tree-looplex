@@ -89,3 +89,15 @@ body, select, input, button {
 .item-edit input:focus {
   border-color: #964747;
 }
+
+/* Chrome, Safari, Edge, Opera */
+.input-price::-webkit-outer-spin-button,
+.input-price::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-price[type=number] {
+  -moz-appearance: textfield;
+}
