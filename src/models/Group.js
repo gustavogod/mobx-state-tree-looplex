@@ -15,9 +15,9 @@ const User = types
         //Nesse caso, o maybe é usado para que se possa ter um recipient undefined, já que pode não haver nenhuma instância de User referenciada no momento  
     })
     .actions(self => ({
-        getSuggestions: flow(function*() {
+        getSuggestions: flow(function* () {
             const response = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`);
-            self.wishList.items.push( ...(yield response.json()));
+            self.wishList.items.push(...(yield response.json()));
         })
     }));
 
@@ -25,43 +25,61 @@ export const Group = types
     .model({
         users: types.map(User)
     })
-    .actions(self => ({
-        afterCreate() {
-            self.load();
-        },
-        load: flow(function* load() {
-            const response = yield window.fetch(`http://localhost:3001/users`);
-            applySnapshot(self.users, yield response.json());
-        }),
-        drawLots() {
-            const allUsers = Array.from(self.users.values());
+    .actions(self => {
+        let controller;
 
-            // not enought users
-            if (allUsers.length <= 1) return;
+        return {
+            afterCreate() {
+                self.load();
+            },
+            load: flow(function* load() {
+                controller = window.AbortController && new window.AbortController();
+                try {
+                    const response = yield window.fetch(
+                        `http://localhost:3001/users`,
+                        { signal: controller && controller.signal }
+                    );
+                    applySnapshot(self.users, yield response.json());
+                    console.log("success");
+                } catch (e) {
+                    console.log("aborted", e.name);
+                }
+            }),
+            reload() {
+                //abort current request  
+                if (controller) controller.abort();
+                self.load();
+            },
+            drawLots() {
+                const allUsers = Array.from(self.users.values());
 
-            //not assigned lots
-            let remaining = allUsers.slice();
+                // not enought users
+                if (allUsers.length <= 1) return;
 
-            allUsers.forEach(user => {
-                // edge case: the only person without recipient
-                // is the same as the only remaining lot
-                // swap lot's with some random other person
-                if (remaining.length === 1 && remaining[0] === user) {
-                    const swapWith = allUsers[Math.floor(Math.random() * (allUsers.length - 1))];
-                    user.recipient = swapWith.recipient;
-                    swapWith.recipient = self;
-                } else {
-                    while (!user.recipient) {
-                        // Pick random lot from remaining list
-                        let recipientIdx = Math.floor(Math.random() * remaining.length);
+                //not assigned lots
+                let remaining = allUsers.slice();
 
-                        // If it is not the current user, assign it as recipient, and remove the lot
-                        if (remaining[recipientIdx] !== user) {
-                            user.recipient = remaining[recipientIdx];
-                            remaining.splice(recipientIdx, 1);
+                allUsers.forEach(user => {
+                    // edge case: the only person without recipient
+                    // is the same as the only remaining lot
+                    // swap lot's with some random other person
+                    if (remaining.length === 1 && remaining[0] === user) {
+                        const swapWith = allUsers[Math.floor(Math.random() * (allUsers.length - 1))];
+                        user.recipient = swapWith.recipient;
+                        swapWith.recipient = self;
+                    } else {
+                        while (!user.recipient) {
+                            // Pick random lot from remaining list
+                            let recipientIdx = Math.floor(Math.random() * remaining.length);
+
+                            // If it is not the current user, assign it as recipient, and remove the lot
+                            if (remaining[recipientIdx] !== user) {
+                                user.recipient = remaining[recipientIdx];
+                                remaining.splice(recipientIdx, 1);
+                            }
                         }
                     }
-                }                
-            })
+                })
+            }
         }
-    }))
+    });
